@@ -44,7 +44,7 @@ def get_posts():
         } for p in pagination.items],
         'total': pagination.total,
         'page': paginate.page,
-        'pages': pagination,pages,
+        'pages': pagination.pages,
     })
 
 
