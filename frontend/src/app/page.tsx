@@ -7,10 +7,11 @@ import Search from "@/components/common/Search";
 export default async function Home({ 
   searchParams, 
 }: {
-  searchParams: { page?: string, q?: string };
+  searchParams: Promise<{ page?: string, q?: string }>;
 }) {
-  const currentPage = parseInt(searchParams.page || '1', 10);
-  const query = searchParams.q;
+  const awaitedSearchParams = await searchParams;
+  const currentPage = parseInt(awaitedSearchParams.page || '1', 10);
+  const query = awaitedSearchParams.q;
 
   const { posts, total_pages, current_page } = await getPosts(currentPage, query);
 
