@@ -5,7 +5,7 @@ class BaseConfig:
 
 class DevelopmentConfig(BaseConfig):
     # Use a persistent database file for normal development
-    SQLALCHEMY_DATABASE_URI = 'DATABASE_URL'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///app.db'
 
 class TestingConfig(BaseConfig):
     # Use an in-memory database for running automated tests
