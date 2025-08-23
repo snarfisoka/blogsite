@@ -9,9 +9,8 @@ export default async function Home({
 }: {
   searchParams: { page?: string, q?: string };
 }) {
-  const awaitedSearchParams = await searchParams;
-  const currentPage = parseInt(awaitedSearchParams.page || '1', 10);
-  const query = awaitedSearchParams.q;
+  const currentPage = parseInt(searchParams.page || '1', 10);
+  const query = searchParams.q;
 
   const { posts, total_pages, current_page } = await getPosts(currentPage, query);
 
