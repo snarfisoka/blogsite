@@ -1,29 +1,17 @@
-// src/app/posts/[id]/edit/page.tsx
+// src/app/posts/new/page.tsx
 
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useApi } from '@/hooks/useApi';
-import { usePost } from '@/hooks/usePost';
 
-export default function EditPostPage() {
-    const { id } = useParams<{ id: string }>();
-    const postId = id ? Number(id) : null;
-    const { post, loading: postLoading, error: postError } = usePost(postId);
-
+export default function CreatePostPage() {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    const { loading: apiLoading, error: apiError, executeRequest } = useApi();
+    const { loading, error, executeRequest } = useApi();
     const router = useRouter();
-
-    useEffect(() => {
-        if (post) {
-            setTitle(post.title);
-            setContent(post.content);
-        }
-    }, [post]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -33,26 +21,18 @@ export default function EditPostPage() {
             return;
         }
 
-        const updatedPostData = { title, content };
-        const result = await executeRequest(`/posts/${postId}`, 'PUT', updatedPostData);
+        const newPostData = { title, content };
+        const result = await executeRequest('/posts', 'POST', newPostData);
 
         if (result) {
-            router.push(`/posts/${postId}`);
+            router.push('/');
         }
     };
-
-    if (postLoading) {
-        return <main className="container mx-auto p-4">Loading...</main>;
-    }
-    
-    if (postError || !post) {
-        return <main className="container mx-auto p-4 text-red-500">Post not found.</main>;
-    }
 
     return (
         <main className="container mx-auto p-4">
             <div className="bg-white p-8 rounded-lg shadow-md">
-                <h1 className="text-4xl font-bold text-gray-900 mb-6">Edit Post</h1>
+                <h1 className="text-4xl font-bold text-gray-900 mb-6">Create New Post</h1>
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
                         <label htmlFor="title" className="block text-sm font-medium text-gray-700">Title</label>
@@ -79,17 +59,17 @@ export default function EditPostPage() {
                     <div className="flex gap-4">
                         <button
                             type="submit"
-                            disabled={apiLoading}
+                            disabled={loading}
                             className="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 transition-colors disabled:opacity-50"
                         >
-                            {apiLoading ? 'Saving...' : 'Save Changes'}
+                            {loading ? 'Creating...' : 'Create Post'}
                         </button>
-                        <Link href={`/posts/${post.id}`} className="bg-gray-200 text-gray-800 px-6 py-2 rounded-md hover:bg-gray-300 transition-colors">
+                        <Link href="/" className="bg-gray-200 text-gray-800 px-6 py-2 rounded-md hover:bg-gray-300 transition-colors">
                             Cancel
                         </Link>
                     </div>
                 </form>
-                {apiError && <p className="mt-4 text-red-500">Error: {apiError}</p>}
+                {error && <p className="mt-4 text-red-500">Error: {error}</p>}
             </div>
         </main>
     );
