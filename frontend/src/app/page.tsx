@@ -4,7 +4,11 @@ import { getPosts } from "@/lib/api";
 import Pagination from "@/components/common/Pagination";
 import Search from "@/components/common/Search";
 
-export default async function Home({ searchParams }: {searchParams: { page?: string, q?: string }} ) {
+export default async function Home({ 
+  searchParams, 
+}: {
+  searchParams: { page?: string, q?: string };
+}) {
   const awaitedSearchParams = await searchParams;
   const currentPage = parseInt(awaitedSearchParams.page || '1', 10);
   const query = awaitedSearchParams.q;
