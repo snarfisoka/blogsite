@@ -14,7 +14,7 @@ migrate = Migrate()
 swagger = Swagger()
 redis_client = redis.from_url(os.environ.get('REDIS_URL', 'redis://localhost:6379/0'), decode_responses=True)
 
-def create_app(config_class='config.DevelopmentConfig'):
+def app(config_class='config.DevelopmentConfig'):
     app = Flask(__name__)
 
     #Load the specified configuration
@@ -53,6 +53,6 @@ def create_app(config_class='config.DevelopmentConfig'):
     return app
 
 if __name__ == '__main__':
-    app = create_app() 
+    app = app() 
 
     app.run(debug=True)
