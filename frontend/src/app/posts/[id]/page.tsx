@@ -1,10 +1,9 @@
-// src/app/posts/[id]/page.tsx
-
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getPostById } from "@/lib/api";
 import CommentSection from "./CommentSection";
 import DeleteButton from "./DeleteButton";
+import BackButton from "@/components/common/BackButton";
 
 export default async function PostPage({ params }: { params: Promise<{ id: string}> }) {
   const {id} = await params;
@@ -26,9 +25,7 @@ export default async function PostPage({ params }: { params: Promise<{ id: strin
             Edit Post
           </Link>
             <DeleteButton postId={post.id} />
-          <Link href="/" className="bg-gray-200 text-gray-800 px-6 py-2 rounded-md hover:bg-gray-300 transition-colors">
-            Back to Posts
-          </Link>
+          <BackButton />
         </div>
       </div>
       

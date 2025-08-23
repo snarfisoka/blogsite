@@ -1,4 +1,3 @@
-// src/app/posts/[id]/DeleteButton.tsx
 'use client';
 
 import { useState } from 'react';

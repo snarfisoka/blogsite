@@ -1,5 +1,3 @@
-// src/app/posts/[id]/CommentSection.tsx
-
 'use client';
 
 import { useComments } from "@/hooks/useComments";
