@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { Post } from '../../types'; // Import the Post type
 
 interface PostCardProps {

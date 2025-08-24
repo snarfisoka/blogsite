@@ -1,10 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 export default function BackButton() {
-    const router = useRouter();
     const searchParams = useSearchParams();
 
     const page = searchParams.get('page') || '1';
