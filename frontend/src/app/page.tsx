@@ -28,7 +28,9 @@ export default async function Home({
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {posts.map((post) => (
-          <PostCard key={post.id} post={post} />
+          <Link key={post.id} href={`/posts/${post.id}?page=${current_page}${query ? `&q=${query}` : ''}`}>
+            <PostCard post={post} />
+          </Link>
         ))}
       </div>
       <Pagination currentPage={current_page} totalPages={total_pages} />
